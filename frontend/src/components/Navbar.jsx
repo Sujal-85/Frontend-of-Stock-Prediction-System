@@ -147,8 +147,8 @@ export default function Navbar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <Avatar sx={{ width: 24, height: 24 }} src="/broken-image.jpg">
-              {user.name.charAt(0)}
+            <Avatar sx={{ width: 32, height: 32 }} src="/broken-image.jpg">
+              {user?.name?.charAt(0) || ''}
             </Avatar>
           </IconButton>
           <p>Profile</p>

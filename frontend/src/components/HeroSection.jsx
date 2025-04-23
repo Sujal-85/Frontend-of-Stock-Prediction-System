@@ -32,7 +32,7 @@ const HeroSection = () => {
     <HeroContainer>
       <Container maxWidth="md">
         <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-          AI-Powered Stock Market Predictions
+          Stock Price Prediction
         </Typography>
         <Typography variant="h5" component="p" sx={{ opacity: 0.9, mb: 2, color:'white', fontWeight:'bold'}}>
           Harness the power of machine learning to forecast stock prices with unprecedented accuracy
