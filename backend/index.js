@@ -15,7 +15,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: 'https://frontend-of-stock-prediction-system.onrender.com/',
   credentials: true,
 }));
 app.use(express.json());
