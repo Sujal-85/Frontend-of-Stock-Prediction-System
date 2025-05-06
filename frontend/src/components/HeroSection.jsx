@@ -43,7 +43,7 @@ const HeroSection = () => {
             variant="contained"
             color="secondary"
             size="large"
-            href="https://sujal-85-stock-price-prediction-project-app-0tk1wo.streamlit.app/"
+            href="https://stock-prediction-system-v1.streamlit.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
