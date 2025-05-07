@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
-        const { data } = await axios.get('/api/auth/check', { 
+        const { data } = await axios.get('https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/check', { 
           withCredentials: true 
         });
         setUser(data);
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     const { data } = await axios.post(
-      '/api/auth/register', 
+      'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/register', 
       { name, email, password }, 
       { withCredentials: true }
     );
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const { data } = await axios.post(
-      '/api/auth/login', 
+      'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/login', 
       { email, password }, 
       { withCredentials: true }
     );
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   const verifyPassword = async (enteredPassword) => {
     try {
       const { data } = await axios.post(
-        '/api/auth/verify-password',
+        'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/verify-password',
         { password: enteredPassword },
         { 
           withCredentials: true,
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const logout = async () => {
-    await axios.post('/api/auth/logout', {}, { withCredentials: true });
+    await axios.post('https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/logout', {}, { withCredentials: true });
     setUser(null);
   };
 
