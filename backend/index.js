@@ -16,7 +16,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://frontend-of-stock-prediction-system.onrender.com',
+  origin: 'https://frontend-of-stock-prediction-system.vercel.app/',
   credentials: true,
 }));
 app.use(express.json());
