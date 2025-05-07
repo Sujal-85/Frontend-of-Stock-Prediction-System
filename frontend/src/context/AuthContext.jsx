@@ -10,11 +10,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       try {
-        const { data } = await axios.get('https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/check', { 
-          withCredentials: true 
-        });
+        const { data } = await axios.get(
+          'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/check', 
+          { withCredentials: true }
+        );
         setUser(data);
       } catch (err) {
+        console.error("Auth check failed:", err.response?.data || err.message);
         setUser(null);
       } finally {
         setLoading(false);
@@ -49,22 +51,22 @@ export const AuthProvider = ({ children }) => {
         { password: enteredPassword },
         { 
           withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          headers: { 'Content-Type': 'application/json' }
         }
       );
       return data.isValid;
     } catch (error) {
       console.error('Verification error:', error);
-      if (error.response && error.response.status === 404) {
-        throw new Error('Verification service unavailable');
-      }
       throw new Error('Verification failed. Please try again.');
     }
   };
+
   const logout = async () => {
-    await axios.post('https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/logout', {}, { withCredentials: true });
+    await axios.post(
+      'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/logout', 
+      {}, 
+      { withCredentials: true }
+    );
     setUser(null);
   };
 
@@ -75,7 +77,7 @@ export const AuthProvider = ({ children }) => {
       register, 
       login, 
       logout,
-      verifyPassword // Now properly included
+      verifyPassword
     }}>
       {children}
     </AuthContext.Provider>
