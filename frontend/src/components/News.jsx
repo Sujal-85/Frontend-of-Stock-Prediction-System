@@ -3,6 +3,7 @@ import '../styles/styles.css';
 
 const News = () => {
   const [newsItems, setNewsItems] = useState([]);
+  const [error, setError] = useState(null); // To store any error message
 
   useEffect(() => {
     fetchNews('Stock Market'); // Default fetch when the component loads
@@ -11,18 +12,23 @@ const News = () => {
   const fetchNews = async (query) => {
     try {
       const response = await fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=eb1c263acfae4a35b1df5dfbbffdabac`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch, status code: ${response.status}`);
+      }
+      
       const data = await response.json();
-      console.log("News API response:", data); // Debugging output
 
       if (data.articles && Array.isArray(data.articles)) {
         setNewsItems(data.articles);
       } else {
-        console.error('No articles found:', data);
         setNewsItems([]);
+        setError('No articles found');
       }
     } catch (error) {
       console.error('Error fetching news:', error);
-      setNewsItems([]);
+      setError(error.message);
+      setNewsItems([]); // Clear newsItems if error occurs
     }
   };
 
@@ -31,7 +37,9 @@ const News = () => {
       <main>
         <br /><br /><br /><br />
         <div className="cards-container container flex mt-20" style={{ fontSize: "15px" }}>
-          {Array.isArray(newsItems) && newsItems.length > 0 ? (
+          {error ? (
+            <p style={{ textAlign: 'center', width: '100%' }}>Error: {error}</p>
+          ) : Array.isArray(newsItems) && newsItems.length > 0 ? (
             newsItems.map((item, index) => (
               <div className="card" key={index}>
                 <div className="card-header">
