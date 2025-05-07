@@ -27,13 +27,19 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const register = async (name, email, password) => {
+  try {
     const { data } = await axios.post(
-      'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/register', 
-      { name, email, password }, 
+      'https://frontend-of-stock-prediction-system-fs3v.onrender.com/api/auth/register',
+      { name, email, password },
       { withCredentials: true }
     );
     setUser(data);
-  };
+  } catch (err) {
+    console.error("Register error:", err.response?.data || err.message);
+    throw err;
+  }
+};
+
 
   const login = async (email, password) => {
     const { data } = await axios.post(
