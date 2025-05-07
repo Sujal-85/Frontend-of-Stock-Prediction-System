@@ -10,27 +10,33 @@ const News = () => {
   }, []);
 
   const fetchNews = async (query) => {
-    try {
-      const response = await fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=eb1c263acfae4a35b1df5dfbbffdabac`);
-      
-      if (!response.ok) {
+  try {
+    const response = await fetch(`https://newsapi.org/v2/everything?q=${query}&apiKey=eb1c263acfae4a35b1df5dfbbffdabac`);
+    
+    if (!response.ok) {
+      // Specific handling for 426 error
+      if (response.status === 426) {
+        throw new Error("Upgrade your NewsAPI plan or wait for the rate limit to reset.");
+      } else {
         throw new Error(`Failed to fetch, status code: ${response.status}`);
       }
-      
-      const data = await response.json();
-
-      if (data.articles && Array.isArray(data.articles)) {
-        setNewsItems(data.articles);
-      } else {
-        setNewsItems([]);
-        setError('No articles found');
-      }
-    } catch (error) {
-      console.error('Error fetching news:', error);
-      setError(error.message);
-      setNewsItems([]); // Clear newsItems if error occurs
     }
-  };
+    
+    const data = await response.json();
+    
+    if (data.articles && Array.isArray(data.articles)) {
+      setNewsItems(data.articles);
+    } else {
+      setNewsItems([]);
+      setError('No articles found');
+    }
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    setError(error.message); // Display specific error message
+    setNewsItems([]); // Clear newsItems if error occurs
+  }
+};
+
 
   return (
     <>
